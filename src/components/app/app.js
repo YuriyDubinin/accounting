@@ -18,6 +18,8 @@ class App extends Component {
                 { name: "Carl", salary: 5000, increase: true, id: 3 },
             ],
         };
+
+        this.maxId = 4;
     }
 
     //removes an employee from the list of employees
@@ -27,6 +29,20 @@ class App extends Component {
                 data: data.filter((elem) => elem.id !== id),
             };
         });
+    };
+
+    //adds an employee to the list, need protect against invalid input
+    addItem = (name, salary) => {
+        const newItem = {
+            name: name,
+            salary: salary,
+            increase: false,
+            id: this.maxId++,
+        };
+
+        this.setState(({ data }) => ({
+            data: [...data, newItem],
+        }));
     };
 
     render() {
@@ -40,7 +56,7 @@ class App extends Component {
                 </div>
 
                 <EmployeesList data={this.state.data} onDelete={this.deleteItem} />
-                <EmployeesAddForm />
+                <EmployeesAddForm onAdd={this.addItem} />
             </div>
         );
     }
