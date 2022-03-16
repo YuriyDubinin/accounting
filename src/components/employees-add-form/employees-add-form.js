@@ -20,7 +20,14 @@ class EmployeesAddForm extends Component {
     onSubmit = (event) => {
         event.preventDefault();
 
-        this.props.onAdd(this.state.name, this.state.salary);
+        const { name, salary } = this.state;
+
+        if (name.length < 2 || !salary) {
+            console.log("Пользователь не добавлен: некорректный ввод");
+            return;
+        }
+
+        this.props.onAdd(name, salary);
 
         this.setState({
             name: "",
