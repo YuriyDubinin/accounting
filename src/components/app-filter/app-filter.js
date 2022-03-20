@@ -8,56 +8,27 @@ class AppFilter extends Component {
     }
 
     render() {
-        const { onUpdateFilter } = this.props;
+        const { filterMode, onFilterSelect } = this.props;
 
-        const setActiveFilterTab = (event) => {
-            const btnGroup = document.querySelector(".btn-group"),
-                allBtns = btnGroup.querySelectorAll("button");
+        const buttonsData = [
+            { name: "all", label: "Все сотрудники" },
+            { name: "rise", label: "На повышение" },
+            { name: "salary", label: "З/П больше 1000$" },
+        ];
 
-            allBtns.forEach((item) => {
-                item.className = "btn btn-outline-light";
-            });
+        const buttons = buttonsData.map(({ name, label }) => {
+            //checking where the filter matches
+            const active = filterMode === name;
 
-            event.currentTarget.className = "btn btn-light";
-        };
-
-        return (
-            <div className="btn-group">
-                <button
-                    type="button"
-                    className="btn btn-light"
-                    data-filter="all"
-                    onClick={(event) => {
-                        onUpdateFilter(event.currentTarget.getAttribute("data-filter"));
-                        setActiveFilterTab(event);
-                    }}
-                >
-                    Все сотрудники
+            const clazz = active ? "btn-light" : "btn-outline-light";
+            return (
+                <button type="button" className={`btn ${clazz}`} key={name} onClick={() => onFilterSelect(name)}>
+                    {label}
                 </button>
-                <button
-                    type="button"
-                    className="btn btn-outline-light"
-                    data-filter="increased"
-                    onClick={(event) => {
-                        onUpdateFilter(event.currentTarget.getAttribute("data-filter"));
-                        setActiveFilterTab(event);
-                    }}
-                >
-                    На повышение
-                </button>
-                <button
-                    type="button"
-                    className="btn btn-outline-light"
-                    data-filter="salary"
-                    onClick={(event) => {
-                        onUpdateFilter(event.currentTarget.getAttribute("data-filter"));
-                        setActiveFilterTab(event);
-                    }}
-                >
-                    З/П больше 1000$
-                </button>
-            </div>
-        );
+            );
+        });
+
+        return <div className="btn-group">{buttons}</div>;
     }
 }
 

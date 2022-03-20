@@ -79,28 +79,19 @@ class App extends Component {
 
     //filter the list of employees
     filterEmployee = (items, filterMode) => {
-        if (filterMode === "all") {
-            return items;
-        }
-
-        if (filterMode === "increased") {
-            return items.filter((item) => {
-                return item.increase === true;
-            });
-        }
-
-        if (filterMode === "salary") {
-            return items.filter((item) => {
-                return item.salary >= 2000;
-            });
+        switch (filterMode) {
+            case "rise":
+                return items.filter((item) => item.rise);
+            case "salary":
+                return items.filter((item) => item.salary > 1000);
+            default:
+                return items;
         }
     };
 
-    //updates this.filterMode
-    onUpdateFilter = (value) => {
-        this.setState({
-            filterMode: value,
-        });
+    //sets the filters
+    onFilterSelect = (filterMode) => {
+        this.setState({ filterMode });
     };
 
     render() {
@@ -108,8 +99,7 @@ class App extends Component {
         const employees = data.length,
             increasedEmployees = data.filter((item) => item.increase).length;
 
-        const filteredData = this.filterEmployee(data, filterMode),
-            visibleData = this.searchEmployee(filteredData, term);
+        const visibleData = this.filterEmployee(this.searchEmployee(data, term), filterMode);
 
         return (
             <div className="app">
@@ -117,7 +107,7 @@ class App extends Component {
 
                 <div className="search-panel">
                     <SearchPanel onUpdateSearch={this.onUpdateSearch} />
-                    <AppFilter onUpdateFilter={this.onUpdateFilter} />
+                    <AppFilter filterMode={filterMode} onFilterSelect={this.onFilterSelect} />
                 </div>
 
                 <EmployeesList data={visibleData} onDelete={this.deleteItem} onToggleProp={this.onToggleProp} />
