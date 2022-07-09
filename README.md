@@ -1,6 +1,6 @@
 # Accounting
 
-👨‍💼 Standard CRUD application made using the React library
+👨‍💼 Standard CRUD application made using the React library.
 
 ![preview_1](src/resources/img/for_readme/preview_1.png)
 
@@ -18,7 +18,7 @@
 $ git clone https://github.com/YuriDubinin/accounting.git
 $ cd accounting
 $ npm i
-$ np start
+$ npm start
 ```
 
 ## Build
