@@ -15,7 +15,7 @@
 ## Setup
 
 ```bash
-$ git clone https://github.com/YuriDubinin/accounting.git
+$ git clone https://github.com/YuriyDubinin/accounting.git
 $ cd accounting
 $ npm i
 $ npm start
